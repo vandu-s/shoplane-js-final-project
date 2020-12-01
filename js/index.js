@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('.slider').slick({
         dots: true,
         infinite: true,
-        speed: 300,
+        speed: 100,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
@@ -58,7 +58,7 @@ $(document).ready(function() {
 
         var productLink = document.createElement('a');
         card.appendChild(productLink);
-        productLink.href = './product.html';
+        productLink.href = './product.html?id=' + data.id;
 
         var thumbnail = document.createElement('img');
         thumbnail.src = data.preview;
