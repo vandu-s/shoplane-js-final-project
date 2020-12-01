@@ -15,7 +15,7 @@ body {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
-    padding: 16px 8%
+    padding: 16px 8%;
 }
 
 #left-menu {
@@ -99,6 +99,9 @@ body {
     position: absolute;
     top: -12px;
     right: -12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #cart-wrapper>a {
@@ -113,4 +116,9 @@ body {
 
 #user_avatar {
     font-size: 22px;
+}
+
+#carousel {
+    overflow: hidden;
+    margin-top: 80px;
 }
