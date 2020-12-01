@@ -2,6 +2,8 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 15px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .card {
@@ -97,13 +99,10 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    outline: 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .btn button:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-}
-
-.previewImg img:hover {
-    border: 2px solid #009688;
 }

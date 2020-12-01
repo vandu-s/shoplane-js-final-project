@@ -17,6 +17,7 @@ body {
     align-items: center;
     box-sizing: border-box;
     padding: 16px 8%;
+    color: rgb(99, 96, 96);
 }
 
 #left-menu {

@@ -75,7 +75,7 @@ $(document).ready(function() {
         previewImg01.src = data.photos[0];
         productPreviewImage.appendChild(previewImg01);
         previewImg01.onclick = function(e) {
-            productImg.src = previewImg01.src;
+            productImg.src = data.photos[0];
         }
 
         var previewImg2 = document.createElement('img');
@@ -84,7 +84,7 @@ $(document).ready(function() {
         previewImg2.src = data.photos[1];
         productPreviewImage.appendChild(previewImg2);
         previewImg2.onclick = function() {
-            productImg.src = previewImg2.src;
+            productImg.src = data.photos[1];
 
         }
 
@@ -95,9 +95,17 @@ $(document).ready(function() {
         previewImg3.src = data.photos[2];
         productPreviewImage.appendChild(previewImg3);
         previewImg3.onclick = function() {
-            productImg.src = previewImg3.src;
+            productImg.src = data.photos[2];
+
+
         }
 
+        $(document).on("click", ".previewImg img", function() {
+            $(this)
+                .addClass("active")
+                .siblings()
+                .removeClass("active");
+        });
 
 
         var previewImg4 = document.createElement('img');
@@ -106,7 +114,7 @@ $(document).ready(function() {
         previewImg4.src = data.photos[3];
         productPreviewImage.appendChild(previewImg4);
         previewImg4.onclick = function() {
-            productImg.src = previewImg4.src;
+            productImg.src = data.photos[3];
         }
 
 
@@ -116,7 +124,7 @@ $(document).ready(function() {
         previewImg5.src = data.photos[4];
         productPreviewImage.appendChild(previewImg5);
         previewImg5.onclick = function() {
-            productImg.src = previewImg5.src;
+            productImg.src = data.photos[4];
         }
 
 
@@ -133,6 +141,9 @@ $(document).ready(function() {
 
     }
 
+    function removeBorder() {
+        this.css
+    }
 
 
     var productData = [];
