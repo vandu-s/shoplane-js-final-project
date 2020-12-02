@@ -4,6 +4,10 @@ body {
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 #topbar {
     width: 100%;
     box-shadow: 0 2px 5px #ccc;

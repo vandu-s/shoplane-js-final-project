@@ -1,161 +1,129 @@
-$(document).ready(function() {
+var productBigImg = document.getElementById('productImg');
+
+var productName = document.getElementById("name");
+
+// Product Brand
+var productBrand = document.getElementById("brand");
+
+// Product Price
+var productPrice = document.getElementById("price");
+
+// Product Description
+var productDescription = document.getElementById("description");
+
+// Product Preview Image 0
+var photo0 = document.getElementById("img0");
+
+// Product Preview Image 1
+var photo1 = document.getElementById("img1");
+
+// Product Preview Image 2
+var photo2 = document.getElementById("img2");
+
+// Product Preview Image 3
+var photo3 = document.getElementById("img3");
+
+// Product Preview Image 4
+var photo4 = document.getElementById("img4");
+
+// Product Preview Image 5
+var photo5 = document.getElementById("img5");
+
+
+var productData = [];
+
+var pageId = window.location.search.split('=')[1];
+console.log(pageId);
+$.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(responseText) {
+    productData = responseText;
+    console.log(productData);
+    productBigImg.src = productData.preview;
+    productName.innerHTML = productData.name;
+    productBrand.innerHTML = productData.brand;
+    productPrice.innerHTML = productData.price;
+    productDescription.innerHTML = productData.description;
+    photo0.src = productData.photos[0];
+    photo1.src = productData.photos[1];
+    photo2.src = productData.photos[2];
+    photo3.src = productData.photos[3];
+    photo4.src = productData.photos[4];
 
 
 
-    function generateData(data) {
-
-        var container = document.getElementById('container');
-
-        var card = document.createElement('div');
-        card.className = 'card';
-        container.appendChild(card);
-
-
-        var leftColumn = document.createElement('div');
-        leftColumn.id = 'left-column';
-
-        var productImg = document.createElement('img');
-        productImg.id = 'productImg';
-        productImg.src = data.preview;
-        leftColumn.appendChild(productImg);
-
-        card.appendChild(leftColumn);
-        var rightColumn = document.createElement('div');
-        rightColumn.id = 'right-column';
-        card.appendChild(rightColumn);
-
-        var productDesc = document.createElement('div');
-        productDesc.className = 'product-description';
-        rightColumn.appendChild(productDesc);
-        var productName = document.createElement('h1');
-        productName.id = 'name';
-        productName.innerHTML = data.name;
-        productDesc.appendChild(productName);
-        var productBrand = document.createElement('h4');
-        productBrand.id = 'brand';
-        productBrand.innerHTML = data.brand;
-        productDesc.appendChild(productBrand);
-        var productPriceH3 = document.createElement('h3');
-        productPriceH3.innerHTML = 'Price: Rs'
-        var productPriceSpan = document.createElement('span');
-        productPriceSpan.id = 'price';
-        productPriceSpan.innerHTML = " " + data.price;
-        productPriceH3.appendChild(productPriceSpan);
-        productDesc.appendChild(productPriceH3);
-        var productPriceSpan = document.createElement('span');
-
-        var productDetails = document.createElement('div');
-        productDetails.className = 'description';
-        productDesc.appendChild(productDetails);
-
-        var productDetailsH3 = document.createElement('h3');
-        productDetailsH3.innerHTML = 'Description';
-        productDetails.appendChild(productDetailsH3);
-        var productDetailsP = document.createElement('p');
-        productDetailsP.id = 'description'
-        productDetailsP.innerHTML = data.description;
-        productDetails.appendChild(productDetailsP);
-
-        var productPreview = document.createElement('div');
-        productPreview.className = 'product-preview';
-        productDesc.appendChild(productPreview);
-
-        var productPreviewHeading = document.createElement('h3');
-        productPreviewHeading.innerHTML = 'Product-Preview';
-        productPreview.appendChild(productPreviewHeading);
-
-        var productPreviewImage = document.createElement('div');
-        productPreviewImage.className = 'previewImg';
-        productPreview.appendChild(productPreviewImage);
-
-        var previewImg01 = document.createElement('img');
-        previewImg01.id = 'img0';
-        previewImg01.className = 'img-to-click'
-        previewImg01.className = 'active';
-        previewImg01.src = data.photos[0];
-        productPreviewImage.appendChild(previewImg01);
-        previewImg01.onclick = function(e) {
-            productImg.src = data.photos[0];
-        }
-
-        var previewImg2 = document.createElement('img');
-        previewImg2.id = 'img1';
-        previewImg2.className = 'img-to-click'
-        previewImg2.src = data.photos[1];
-        productPreviewImage.appendChild(previewImg2);
-        previewImg2.onclick = function() {
-            productImg.src = data.photos[1];
-
-        }
-
-
-        var previewImg3 = document.createElement('img');
-        previewImg3.id = 'img2';
-        previewImg3.className = 'img-to-click'
-        previewImg3.src = data.photos[2];
-        productPreviewImage.appendChild(previewImg3);
-        previewImg3.onclick = function() {
-            productImg.src = data.photos[2];
-
-
-        }
-
-        $(document).on("click", ".previewImg img", function() {
-            $(this)
-                .addClass("active")
-                .siblings()
-                .removeClass("active");
-        });
-
-
-        var previewImg4 = document.createElement('img');
-        previewImg4.id = 'img3';
-        previewImg4.className = 'img-to-click'
-        previewImg4.src = data.photos[3];
-        productPreviewImage.appendChild(previewImg4);
-        previewImg4.onclick = function() {
-            productImg.src = data.photos[3];
-        }
-
-
-        var previewImg5 = document.createElement('img');
-        previewImg5.id = 'img4';
-        previewImg5.className = 'img-to-click'
-        previewImg5.src = data.photos[4];
-        productPreviewImage.appendChild(previewImg5);
-        previewImg5.onclick = function() {
-            productImg.src = data.photos[4];
-        }
-
-
-        var buttonWrapper = document.createElement('div');
-        buttonWrapper.className = 'btn';
-        rightColumn.appendChild(buttonWrapper);
-
-        var addToCartButton = document.createElement('button');
-        addToCartButton.id = 'add-to-cart';
-        addToCartButton.innerHTML = 'Add to Cart'
-        buttonWrapper.appendChild(addToCartButton);
-
-        return card;
-
+    photo0.onclick = function() {
+        productBigImg.src = productData.photos[0];
+    }
+    photo1.onclick = function() {
+        productBigImg.src = productData.photos[1];
+    }
+    photo2.onclick = function() {
+        productBigImg.src = productData.photos[2];
+    }
+    photo3.onclick = function() {
+        productBigImg.src = productData.photos[3];
+    }
+    photo4.onclick = function() {
+        productBigImg.src = productData.photos[4];
     }
 
-    function removeBorder() {
-        this.css
-    }
-
-
-    var productData = [];
-
-    var pageId = window.location.search.split('=')[1];
-    console.log(pageId);
-    $.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(responseText) {
-        productData = responseText;
-        console.log(productData);
-        generateData(productData);
-
+    $(document).on("click", ".previewImg img", function() {
+        $(this)
+            .addClass("active")
+            .siblings()
+            .removeClass("active");
     });
 
+    var addToCart = document.getElementById('add-to-cart');
+    var cart = document.getElementById('cart-count');
+    var myCartData = [];
+    var cartIntialValue;
+
+    if (localStorage.getItem('cart-count') == null) {
+        localStorage.setItem('cart-count', '0');
+
+    } else {
+        var cartValue = localStorage.getItem('cart-count');
+        localStorage.setItem('cart-count', cartValue);
+        console.log(cartValue);
+    }
+
+    function cartCount() {
+        if (window.localStorage.getItem('cart-count') === null) {
+            cartIntialValue = 0;
+        } else {
+            cartIntialValue = JSON.parse(localStorage.getItem('cart-count'));
+            cart.innerHTML = cartIntialValue;
+            console.log('cart int val ' + cartIntialValue);
+        }
+        var cartCurrentValue = cartIntialValue + 1;
+        window.localStorage.setItem('cart-count', cartCurrentValue);
+        cart.innerHTML = window.localStorage.getItem('cart-count');
+        console.log('cart current val ' + cartCurrentValue);
+
+    }
+    cart.innerHTML = window.localStorage.getItem('cart-count');
+    cartCount();
+
+    function addDataIntoList(productData) {
+
+        if (window.localStorage.getItem('product-list') === null) {
+            myCartData = [];
+        } else {
+            myCartData = JSON.parse(window.localStorage.getItem('product-list'));
+        }
+        if (myCartData.length === 0) {
+            var myObj = {
+                id: productData.id,
+                title: productData.name,
+                count: 1,
+                price: productData.price,
+                preview: productData.preview
+            };
+            myCartData.push(myObj);
+        } else if (myCartData.length != 0) {
+            var w = 0;
+
+        }
+    }
 
 });
