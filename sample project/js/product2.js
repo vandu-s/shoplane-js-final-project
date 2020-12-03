@@ -29,14 +29,17 @@ var photo4 = document.getElementById("img4");
 // Product Preview Image 5
 var photo5 = document.getElementById("img5");
 
-
+var currentObj = null;
+var addToCartBtn = document.get
 var productData = [];
 
 var pageId = window.location.search.split('=')[1];
 console.log(pageId);
-$.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(responseText) {
+$.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(responseText, status) {
     productData = responseText;
-    console.log(productData);
+    currentObj = productData;
+    console.log('currentobj', currentObj);
+
     productBigImg.src = productData.preview;
     productName.innerHTML = productData.name;
     productBrand.innerHTML = productData.brand;
@@ -65,7 +68,6 @@ $.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(
     photo4.onclick = function() {
         productBigImg.src = productData.photos[4];
     }
-
     $(document).on("click", ".previewImg img", function() {
         $(this)
             .addClass("active")
@@ -73,57 +75,40 @@ $.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(
             .removeClass("active");
     });
 
-    var addToCart = document.getElementById('add-to-cart');
-    var cart = document.getElementById('cart-count');
-    var myCartData = [];
-    var cartIntialValue;
 
-    if (localStorage.getItem('cart-count') == null) {
-        localStorage.setItem('cart-count', '0');
-
-    } else {
-        var cartValue = localStorage.getItem('cart-count');
-        localStorage.setItem('cart-count', cartValue);
-        console.log(cartValue);
-    }
-
-    function cartCount() {
-        if (window.localStorage.getItem('cart-count') === null) {
-            cartIntialValue = 0;
-        } else {
-            cartIntialValue = JSON.parse(localStorage.getItem('cart-count'));
-            cart.innerHTML = cartIntialValue;
-            console.log('cart int val ' + cartIntialValue);
-        }
-        var cartCurrentValue = cartIntialValue + 1;
-        window.localStorage.setItem('cart-count', cartCurrentValue);
-        cart.innerHTML = window.localStorage.getItem('cart-count');
-        console.log('cart current val ' + cartCurrentValue);
-
-    }
-    cart.innerHTML = window.localStorage.getItem('cart-count');
-    cartCount();
-
-    function addDataIntoList(productData) {
-
-        if (window.localStorage.getItem('product-list') === null) {
-            myCartData = [];
-        } else {
-            myCartData = JSON.parse(window.localStorage.getItem('product-list'));
-        }
-        if (myCartData.length === 0) {
-            var myObj = {
-                id: productData.id,
-                title: productData.name,
-                count: 1,
-                price: productData.price,
-                preview: productData.preview
-            };
-            myCartData.push(myObj);
-        } else if (myCartData.length != 0) {
-            var w = 0;
-
-        }
-    }
 
 });
+var addToCartBtn = document.getElementById('add-to-cart')
+
+addToCartBtn.addEventListener('click', function() {
+    alert('i m clicked');
+    var productList = window.localStorage.getItem('product-list');
+    productList = productList === null || productList === '' ? [] : productList;
+    productList = productList.length > 0 ? JSON.parse(productList) : [];
+
+    productList.push(currentObj);
+    window.localStorage.setItem('product-list', JSON.stringify(productList));
+    console.log('productList', productList);
+
+    var foundAtPos = -1;
+    for (var i = 0; i < productList.length; i++) {
+        if (parseInt(productList[i].id) == parseInt(currentObj.id)) {
+            foundAtPos = i;
+            // console.log(foundAtPos);
+        }
+    }
+    if (foundAtPos > -1) {
+        productList[foundAtPos].count = productList[foundAtPos].count + 1;
+        console.log('foundatposition', productList[foundAtPos].count);
+        window.localStorage.setItem('product-list', JSON.stringify(productList));
+
+    }
+    // else
+    //     currentObj.count = 1;
+    // productList.push(currentObj);
+    // console.log(productList);
+    // window.localStorage.setItem('product-list', JSON.stringify(productList));
+
+
+});
+// localStorage.clear();
