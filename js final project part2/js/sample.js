@@ -119,42 +119,42 @@ var photo5 = document.getElementById("img5");
 
 var currentObj = null;
 var addToCartBtn = document.get
-var productData = [];
+var productObj = [];
 
 var pageId = window.location.search.split('=')[1];
 // console.log(pageId);
 $.get('https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + pageId, function(responseText, status) {
-    productData = responseText;
-    currentObj = productData;
+    productObj = responseText;
+    currentObj = productObj;
     // console.log('currentobj', currentObj);
 
-    productBigImg.src = productData.preview;
-    productName.innerHTML = productData.name;
-    productBrand.innerHTML = productData.brand;
-    productPrice.innerHTML = productData.price;
-    productDescription.innerHTML = productData.description;
-    photo0.src = productData.photos[0];
-    photo1.src = productData.photos[1];
-    photo2.src = productData.photos[2];
-    photo3.src = productData.photos[3];
-    photo4.src = productData.photos[4];
+    productBigImg.src = productObj.preview;
+    productName.innerHTML = productObj.name;
+    productBrand.innerHTML = productObj.brand;
+    productPrice.innerHTML = productObj.price;
+    productDescription.innerHTML = productObj.description;
+    photo0.src = productObj.photos[0];
+    photo1.src = productObj.photos[1];
+    photo2.src = productObj.photos[2];
+    photo3.src = productObj.photos[3];
+    photo4.src = productObj.photos[4];
 
 
 
     photo0.onclick = function() {
-        productBigImg.src = productData.photos[0];
+        productBigImg.src = productObj.photos[0];
     }
     photo1.onclick = function() {
-        productBigImg.src = productData.photos[1];
+        productBigImg.src = productObj.photos[1];
     }
     photo2.onclick = function() {
-        productBigImg.src = productData.photos[2];
+        productBigImg.src = productObj.photos[2];
     }
     photo3.onclick = function() {
-        productBigImg.src = productData.photos[3];
+        productBigImg.src = productObj.photos[3];
     }
     photo4.onclick = function() {
-        productBigImg.src = productData.photos[4];
+        productBigImg.src = productObj.photos[4];
     }
     $(document).on("click", ".previewImg img", function() {
         $(this)
@@ -169,7 +169,86 @@ var cart = document.getElementById('cart-count');
 var myCartData = [];
 var cartInitialValue;
 
-// if (localStorage.getItem('cart-count') == null) {
-//     // localStorage.getItem('cart-count','0') 
-// }
-// console.log('cartcount ' + localStorage.getItem('cart-count'));
+if (localStorage.getItem('cart-count') == null) {
+    localStorage.setItem('cart-count', '0')
+} else {
+    var cartValue = localStorage.getItem('cart-count');
+    localStorage.setItem('cart-count', cartValue);
+
+}
+console.log('cartcount ' + localStorage.getItem('cart-count'));
+
+function cartCount() {
+    if (localStorage.getItem('cart-count') == null) {
+        cartInitialValue = 0;
+
+    } else {
+        cartInitialValue = JSON.parse(window.localStorage.getItem('cart-count'));
+        cart.innerHTML = cartInitialValue;
+    }
+    var cartCurrentValue = cartInitialValue + 1;
+    window.localStorage.setItem('cart-count', cartCurrentValue);
+    cart.innerHTML = window.localStorage.getItem("cart-count");
+
+}
+cart.innerHTML = window.localStorage.getItem("cart-count");
+
+function addDataIntoList(productData) {
+    if (window.localStorage.getItem("product-list") === null) {
+        myCartData = [];
+    } else {
+        myCartData = JSON.parse(window.localStorage.getItem("product-list"));
+
+    }
+    if (myCartData.length === 0) {
+        var myObj = {
+            id: productData.id,
+            title: productData.name,
+            count: 1,
+            price: productData.price,
+            preview: productData.preview
+        };
+        myCartData.push(myObj);
+    } else if (myCartData.length != 0) {
+        var w = 0;
+        if (myCartData[i].id == productData.id) {
+            myCartData[i].count = parseInt(myCartData[i].count) + 1;
+            w += 1;
+
+        }
+    }
+    if (w == 0) {
+        var myObj = {
+            id: productData.id,
+            title: productData.name,
+            count: 1,
+            price: productData.price,
+            preview: productData.preview
+        };
+        myCartData.push(myObj);
+    }
+    window.localStorage.setItem("product-list", JSON.stringify(myCartData));
+}
+addToCartBtn.addEventListener('click', function() {
+    var productId = window.location.search.split("=")[1];
+    var urlLink = "https://5d76bf96515d1a0014085cf9.mockapi.io/product/" + productId;
+
+    function getDataForLocalStorage() {
+        var http = new XMLHttpRequest();
+        http.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    var productData = JSON.parse(this.responseText);
+                    addDataIntoList(productData);
+                }
+            }
+        }
+        http.open("GET", urlLink, true);
+        http.send();
+
+    }
+    cartCount();
+    getDataForLocalStorage();
+
+
+});
