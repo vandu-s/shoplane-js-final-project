@@ -14,7 +14,7 @@ function createItemCard(id, preview, name, brand, price) {
 
     //Create a ANCHOR element with HREF
     var cardLink = document.createElement("a");
-    cardLink.href = "product.html?product_id=" + id;
+    cardLink.href = "./product.html?product_id=" + id;
 
     //Create a IMG-CONTAINER element with class IMG
     var imgContainer = document.createElement("div");
@@ -238,6 +238,7 @@ function createProductPage(
                 .siblings()
                 .removeClass("active");
         });
+
     }
     changeImage();
 }

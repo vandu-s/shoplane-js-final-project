@@ -5,6 +5,7 @@ var numberOfItem = document.getElementById("number-of-item");
 var myLocalStorageData = JSON.parse(
     window.localStorage.getItem("product-list")
 );
+console.log(myLocalStorageData);
 
 function createItemOnCheckOut(iPreview, iName, iCount, iPrice) {
     var item = document.createElement("div");
@@ -52,15 +53,21 @@ var cost = 0;
 var counter = 0;
 
 for (var y = 0; y < myLocalStorageData.length; y++) {
+    console.log('count ',
+        myLocalStorageData[y].count);
     counter += myLocalStorageData[y].count;
-    console.log(counter);
+    console.log('Totalcount ',
+        counter);
+
+    // console.log(counter);
     cost +=
         parseInt(myLocalStorageData[y].count) *
         parseInt(myLocalStorageData[y].price);
-    console.log(cost);
+    // console.log(cost);
 }
 totalAmount.innerHTML = cost;
 numberOfItem.innerHTML = counter;
+console.log('counter ' + counter);
 
 var placeOrder = document.getElementById("place-order");
 
@@ -68,9 +75,13 @@ placeOrder.addEventListener("click", function() {
     myLocalStorageData = window.localStorage.removeItem("product-list");
     cartC = window.localStorage.setItem("cart-count", "0");
     var cost = 0;
+    counter = 0;
     for (var i = 0; i < myLocalStorageData.length; i++) {
         counter += myLocalStorageData[i].count;
+
     }
     totalAmount.innerHTML = cost;
     numberOfItem.innerHTML = counter;
+    console.log('counter new ' + counter);
+
 });
