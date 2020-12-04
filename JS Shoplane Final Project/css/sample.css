@@ -352,6 +352,27 @@ html {
 }
 
 
+/*order confirm page*/
+
+.order-confirm {
+    margin-top: 120px;
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+.order-confirm img {
+    height: 300px;
+}
+
+.order-confirm h2 {
+    margin-top: 60px;
+}
+
+.order-confirm p {
+    margin-top: 10px;
+}
+
+
 /*footer*/
 
 footer {
